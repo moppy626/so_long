@@ -71,12 +71,12 @@ typedef struct s_system
 typedef struct s_img
 {
 	void 		*floor;
+	void 		*item;
+	void 		*goal[5];
 	t_wall 		wall;
 	t_player	player;
 	t_monster 	monster;
 	t_system	system;
-	void 		*item[4];
-	void 		*goal[5];
 } t_img;
 
 typedef struct s_map
@@ -97,7 +97,7 @@ typedef struct s_data
     t_img 		img;
 	t_object	player;
 	t_object	goal;
-	t_list		*enemys;
+	t_list		*vilans;
 } t_data;
 
 void check_map(t_data *d);

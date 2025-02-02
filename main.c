@@ -120,20 +120,20 @@ void set_object(t_data *d, t_object *t, char stracture)
 		x++;
 	}
 }
-void set_vilans(t_data *d, t_list **list, void *img)
+void set_objectlist(t_data *d, t_list **list, char stracture, void *img)
 {
 	ssize_t x;
 	ssize_t y;
 
     if (!d || !d->map || !d->map->map)
-        free_and_exit("Error\n Failed in set_object\n", d);
+        free_and_exit("Error\n Failed in set_objectlist\n", d);
 	x = 0;
 	while (x < d->map->column)
 	{
 		y = 0;
 		while(y < d->map->row)
 		{
-			if(d->map->map[y][x] == VILAN)
+			if(d->map->map[y][x] == stracture)
 			{
 				enlist(list, x, y, img);
 			}
@@ -160,7 +160,7 @@ int main(int argc, char **argv)
 	if (!d.win)
 	    free_and_exit("Failed in mlx_new_window\n", &d);
 	set_img(&d);
-	set_vilans(&d, &d.enemys, &d.img.monster.right);
+	set_objectlist(&d, &d.vilans, VILAN, &d.img.monster.right);
 	set_bar(&d);
 	init_frame(&d);
 	mlx_key_hook(d.win, on_keypress, &d);

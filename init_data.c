@@ -41,10 +41,7 @@ void set_img(t_data *d)
 	read_img((void **)&d->img.monster.right[0], d, "./img/monster/right0.xpm");
 	read_img((void **)&d->img.monster.right[1], d, "./img/monster/right1.xpm");
 	read_img((void **)&d->img.monster.right[2], d, "./img/monster/right2.xpm");
-	read_img((void **)&d->img.item[0], d, "./img/item/0.xpm");
-	read_img((void **)&d->img.item[1], d, "./img/item/1.xpm");
-	read_img((void **)&d->img.item[2], d, "./img/item/2.xpm");
-	read_img((void **)&d->img.item[3], d, "./img/item/3.xpm");
+	read_img((void **)&d->img.item, d, "./img/item.xpm");
 	read_img((void **)&d->img.system.bar, d, "./img/system/bar.xpm");
 	read_img((void **)&d->img.system.coin, d, "./img/system/coin.xpm");
 	read_img((void **)&d->img.system.foot, d, "./img/system/foot.xpm");

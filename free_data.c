@@ -59,7 +59,7 @@ void free_data(t_data *d)
     destroy_list(d->mlx, d->img.player.goal, 3);
     destroy_list(d->mlx, d->img.monster.left, 3);
     destroy_list(d->mlx, d->img.monster.right, 3);
-    destroy_list(d->mlx, d->img.item, 4);
+    check_and_destroyimg(d->mlx, d->img.item);
     check_and_destroyimg(d->mlx, d->img.system.bar);
     check_and_destroyimg(d->mlx, d->img.system.coin);
     check_and_destroyimg(d->mlx, d->img.system.foot);
@@ -74,8 +74,8 @@ void free_data(t_data *d)
         mlx_destroy_display(d->mlx);
         free(d->mlx);
     }
-    while (d->enemys)
-        delist(&d->enemys);
+    while (d->vilans)
+        delist(&d->vilans);
 }
 void fail_and_exit(char *msg, t_data *d)
 {
