@@ -3,10 +3,12 @@
 void render_player(t_data *d)
 {
 	if (d->player.idx >= 3)
+	{
 		if(d->player.flg == 1)
 			return;
 		else
 			d->player.idx = 0;
+	}
 	my_put_image_to_window(d, d->player.img[d->player.idx], d->player.x, d->player.y);
 	d->player.idx++;
 }
@@ -21,7 +23,6 @@ void render_goal(t_data *d)
 void render_vilans(t_data *d)
 {
 	t_list *enemy;
-	ssize_t x;
 
 	if(d->goal.flg == 1)
 		return;
@@ -84,4 +85,5 @@ int render_next_frame(t_data *d)
 		render = 1000;
 	}
 	render--;
+	return (0);
 }

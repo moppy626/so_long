@@ -15,8 +15,8 @@ ssize_t count_map(t_data *d,char **argv)
 	valid_rowcnt = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-        fail_and_exit("Error\n Failed to open map file\n", d);
-	while (ret = get_next_line(fd))
+		fail_and_exit("Error\n Failed to open map file\n", d);
+	while ((ret = get_next_line(fd)))
 	{
 		if (!ret)
 			free_and_exit("Error\n Failed in get_next_line\n", d);
@@ -64,22 +64,22 @@ void set_status(t_data *d)
 	d->map->allitems = count_object(d, ITEM);
 }
 
-void get_map(t_data *d, int argc, char **argv)
+void get_map(t_data *d, char **argv)
 {
 	int fd;
 	int i;
 	char *ret;
 
     d->map = malloc(sizeof(t_map));
-    if (!d->map)
-        fail_and_exit("Error\n  Failed in malloc\n", d);
+	if (!d->map)
+	fail_and_exit("Error\n  Failed in malloc\n", d);
 	d->map->row = count_map(d, argv);
 	d->map->map = malloc(sizeof(char *) * d->map->row);
-    if (!d->map->map)
-        free_and_exit("Error\n  Failed in malloc\n", d);
+	if (!d->map->map)
+		free_and_exit("Error\n  Failed in malloc\n", d);
 	i = 0;
 	fd = open(argv[1], O_RDONLY);
-	while (ret = get_next_line(fd))
+	while ((ret = get_next_line(fd)))
 	{
 		if (!ret)
 			free_and_exit("Error\n Failed in get_next_line\n", d);

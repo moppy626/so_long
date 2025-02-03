@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmachida <mmachida@student.42tokyo.jp>     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/02/02 20:20:23 by mmachida          #+#    #+#              #
+#    Updated: 2025/02/02 20:20:23 by mmachida         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC = sudo cc -Wall -Wextra -Werror
 NAME = so_long
 BONUS_NAME = so_long_bonus
@@ -25,7 +37,7 @@ $(BONUS_NAME): $(OBJS)
 clean: 
 	rm -f $(OBJS)
 
-fclean: 
+fclean: clean
 	rm -f $(NAME) $(BONUS_NAME)
 
 re: fclean all

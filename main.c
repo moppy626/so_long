@@ -100,8 +100,8 @@ void set_object(t_data *d, t_object *t, char stracture)
 	ssize_t x;
 	ssize_t y;
 
-    if (!d || !d->map || !d->map->map)
-        free_and_exit("Error\n Failed in set_object\n", d);
+	if (!d || !d->map || !d->map->map)
+		free_and_exit("Error\n Failed in set_object\n", d);
 	x = 0;
 	t->flg = 0;
 	t->idx = 0;
@@ -126,7 +126,7 @@ void set_objectlist(t_data *d, t_list **list, char stracture, void *img)
 	ssize_t y;
 
     if (!d || !d->map || !d->map->map)
-        free_and_exit("Error\n Failed in set_objectlist\n", d);
+		free_and_exit("Error\n Failed in set_objectlist\n", d);
 	x = 0;
 	while (x < d->map->column)
 	{
@@ -149,7 +149,7 @@ int main(int argc, char **argv)
 
     if (argc != 2)
         fail_and_exit("Error\n Not a single argument\n", &d);
-    get_map(&d, argc, argv);
+    get_map(&d, argv);
 	set_object(&d, &d.player, PLAYER);
 	set_object(&d, &d.goal, EXIT);
 	check_reachable(&d);

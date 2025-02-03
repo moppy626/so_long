@@ -105,7 +105,7 @@ ssize_t count_object(t_data *d, char object);
 void free_data(t_data *d);
 void fail_and_exit(char *msg, t_data *d);
 void free_and_exit(char *msg, t_data *d);
-void get_map(t_data *d, int argc, char **argv);
+void get_map(t_data *d, char **argv);
 void set_img(t_data *d);
 void init_frame(t_data *d);
 void my_put_image_to_window(t_data *d, void *img, ssize_t x, ssize_t y);
