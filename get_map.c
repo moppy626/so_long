@@ -1,8 +1,8 @@
 #include "so_long.h"
 
 /*
-　行数をカウントする
-　後ろの改行を無視するため、最後の改行以外の行を返す
+　マップの行数をカウントする
+　（後ろの改行を無視するため、最後の改行以外の行を返す）
 */
 ssize_t count_map(t_data *d,char **argv)
 {
@@ -32,53 +32,14 @@ ssize_t count_map(t_data *d,char **argv)
 }
 
 /*
-　パラメタで指定された要素の数をカウントする
+	マップを読み込みます
 */
-ssize_t count_object(t_data *d, char object)
+void read_map(t_data *d, int fd)
 {
-	ssize_t	x;
-	ssize_t	y;
-	ssize_t	itemcnt;
+	int		i;
+	char	*ret;
 
-	x = 0;
-	itemcnt = 0;
-	while (x < d->map->column)
-	{
-		y = 0;
-		while(y < d->map->row)
-		{
-			if(d->map->map[y][x] == object)
-			{
-				itemcnt++;
-			}
-			y++;
-		}
-		x++;
-	}
-	return (itemcnt);
-}
-void set_status(t_data *d)
-{
-	d->map->count = 0;
-	d->map->getitems = 0;
-	d->map->allitems = count_object(d, ITEM);
-}
-
-void get_map(t_data *d, char **argv)
-{
-	int fd;
-	int i;
-	char *ret;
-
-    d->map = malloc(sizeof(t_map));
-	if (!d->map)
-	fail_and_exit("Error\n  Failed in malloc\n", d);
-	d->map->row = count_map(d, argv);
-	d->map->map = malloc(sizeof(char *) * d->map->row);
-	if (!d->map->map)
-		free_and_exit("Error\n  Failed in malloc\n", d);
 	i = 0;
-	fd = open(argv[1], O_RDONLY);
 	while ((ret = get_next_line(fd)))
 	{
 		if (!ret)
@@ -89,7 +50,25 @@ void get_map(t_data *d, char **argv)
 			free(ret);
 		i++;
 	}
+}
+/*
+	パラメタのパスからマップを読み込みます
+*/
+void get_map(t_data *d, char **argv)
+{
+	int fd;
+
+    d->map = malloc(sizeof(t_map));
+	if (!d->map)
+		fail_and_exit("Error\n  Failed in malloc\n", d);
+	d->map->row = count_map(d, argv);
+	d->map->map = malloc(sizeof(char *) * d->map->row);
+	if (!d->map->map)
+		free_and_exit("Error\n  Failed in malloc\n", d);
+	fd = open(argv[1], O_RDONLY);
+	read_map(d, fd);
 	close(fd);
 	check_map(d);
-	set_status(d);
+	d->map->count = 0;
+	d->map->getitems = 0;
 }

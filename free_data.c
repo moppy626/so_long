@@ -75,7 +75,7 @@ void free_data(t_data *d)
         free(d->mlx);
     }
     while (d->vilans)
-        delist(&d->vilans);
+        get_from_list(&d->vilans);
 }
 void fail_and_exit(char *msg, t_data *d)
 {

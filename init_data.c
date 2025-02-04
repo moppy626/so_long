@@ -1,5 +1,9 @@
 #include "so_long.h"
 
+/*
+	mlx_xpm_file_to_imageを使用し、
+	その戻り値がNULLの場合エラー処理を行います
+*/
 void read_img(void **img, t_data *d,char *filename)
 {
 	int	wid;
@@ -11,12 +15,12 @@ void read_img(void **img, t_data *d,char *filename)
 	if(!*img)
 		free_and_exit("Error\n Failed to load image\n", d);
 }
-void set_img(t_data *d)
+
+/*
+	プレイヤーの画像を読み込みます
+*/
+void set_player_img(t_data *d)
 {
-	read_img((void **)&d->img.floor, d, "./img/floor.xpm");
-	read_img((void **)&d->img.wall.top, d, "./img/wall/top.xpm");
-	read_img((void **)&d->img.wall.stone, d, "./img/wall/stone.xpm");
-	read_img((void **)&d->img.wall.under, d, "./img/wall/under.xpm");
 	read_img((void **)&d->img.player.front[0], d, "./img/player/front0.xpm");
 	read_img((void **)&d->img.player.front[1], d, "./img/player/front1.xpm");
 	read_img((void **)&d->img.player.front[2], d, "./img/player/front2.xpm");
@@ -35,6 +39,40 @@ void set_img(t_data *d)
 	read_img((void **)&d->img.player.goal[0], d, "./img/player/goal0.xpm");
 	read_img((void **)&d->img.player.goal[1], d, "./img/player/goal1.xpm");
 	read_img((void **)&d->img.player.goal[2], d, "./img/player/goal2.xpm");
+}
+
+void set_objectlist(t_data *d, t_list **list, char stracture, void *img)
+{
+	ssize_t x;
+	ssize_t y;
+
+    if (!d || !d->map || !d->map->map)
+		free_and_exit("Error\n Failed in set_objectlist\n", d);
+	x = 0;
+	while (x < d->map->column)
+	{
+		y = 0;
+		while(y < d->map->row)
+		{
+			if(d->map->map[y][x] == stracture)
+			{
+				add_list(list, x, y, img);
+			}
+			y++;
+		}
+		x++;
+	}
+}
+
+/*
+	描画に必要な画像を読み込みます
+*/
+void init_data(t_data *d)
+{
+	read_img((void **)&d->img.floor, d, "./img/floor.xpm");
+	read_img((void **)&d->img.wall.top, d, "./img/wall/top.xpm");
+	read_img((void **)&d->img.wall.stone, d, "./img/wall/stone.xpm");
+	read_img((void **)&d->img.wall.under, d, "./img/wall/under.xpm");
 	read_img((void **)&d->img.monster.left[0], d, "./img/monster/left0.xpm");
 	read_img((void **)&d->img.monster.left[1], d, "./img/monster/left1.xpm");
 	read_img((void **)&d->img.monster.left[2], d, "./img/monster/left2.xpm");
@@ -51,6 +89,7 @@ void set_img(t_data *d)
 	read_img((void **)&d->img.goal[2], d, "./img/goal/2.xpm");
 	read_img((void **)&d->img.goal[3], d, "./img/goal/3.xpm");
 	read_img((void **)&d->img.goal[4], d, "./img/goal/4.xpm");
+	set_player_img(d);
 	d->player.img = d->img.player.front;
-
+	set_objectlist(d, &d->vilans, VILAN, d->img.monster.right);
 }

@@ -13,7 +13,7 @@
 CC = sudo cc -Wall -Wextra -Werror
 NAME = so_long
 BONUS_NAME = so_long_bonus
-SRC = main.c free_data.c get_map.c init_data.c render_frame.c check_map.c init_frame.c
+SRC = main.c free_data.c get_map.c init_data.c render_frame.c check_map.c init_frame.c check_playable.c
 SRC_GNL = get_next_line.c get_next_line_utils.c
 SRC_PRINTF = str_funcs.c ft_strlen.c printf_funcs.c ft_printf.c
 SRC_LIBFT = ft_memcpy.c ft_itoa.c

@@ -101,17 +101,16 @@ typedef struct s_data
 } t_data;
 
 void check_map(t_data *d);
-ssize_t count_object(t_data *d, char object);
 void free_data(t_data *d);
 void fail_and_exit(char *msg, t_data *d);
 void free_and_exit(char *msg, t_data *d);
 void get_map(t_data *d, char **argv);
-void set_img(t_data *d);
+void init_data(t_data *d);
 void init_frame(t_data *d);
 void my_put_image_to_window(t_data *d, void *img, ssize_t x, ssize_t y);
 int render_next_frame(t_data *data);
 void render_player(t_data *d);
-void check_reachable(t_data *d);
+void check_playable(t_data *d);
 void end_game(t_data *d, char *msg);
-void enlist(t_list **head, ssize_t x, ssize_t y, void *img);
-t_object delist(t_list **head);
+void add_list(t_list **head, ssize_t x, ssize_t y, void *img);
+t_object get_from_list(t_list **head);

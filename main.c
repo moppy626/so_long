@@ -1,11 +1,6 @@
 #include "so_long.h"
 
-int on_destroy(t_data *d)
-{
-    free_data(d);
-	exit(EXIT_SUCCESS);
-    return(0);
-}
+
 void clear_bar(t_data *d)
 {
 	ssize_t x;
@@ -19,25 +14,21 @@ void clear_bar(t_data *d)
 }
 void set_bar(t_data *d)
 {
-	char *count;
-	char *getitems;
-	char *allitems;
+	char *str;
 
-	
 	clear_bar(d);
-	ft_printf("%d\n", d->map->count);
-	count = ft_itoa(d->map->count++);
-	getitems = ft_itoa(d->map->getitems);
-	allitems = ft_itoa(d->map->allitems);
+	str = ft_itoa(d->map->count);
+	mlx_string_put(d->mlx, d->win, 40, 16, 0xFFFFFFFF, str);
+	free(str);
+	str = ft_itoa(d->map->getitems);
 	mlx_put_image_to_window(d->mlx, d->win, d->img.system.foot, 10, 3);
-	mlx_string_put(d->mlx, d->win, 40, 16, 0xFFFFFFFF, count);
+	mlx_string_put(d->mlx, d->win, 100, 16, 0xFFFFFFFF, str);
+	free(str);
+	str = ft_itoa(d->map->allitems);
 	mlx_put_image_to_window(d->mlx, d->win, d->img.system.coin, 70, 3);
-	mlx_string_put(d->mlx, d->win, 100, 16, 0xFFFFFFFF, getitems);
 	mlx_string_put(d->mlx, d->win, 120, 16, 0xFFFFFFFF, "/");
-	mlx_string_put(d->mlx, d->win, 130, 16, 0xFFFFFFFF, allitems);
-	free(count);
-	free(getitems);
-	free(allitems);
+	mlx_string_put(d->mlx, d->win, 130, 16, 0xFFFFFFFF, str);
+	free(str);
 }
 void end_game(t_data *d, char *msg)
 {
@@ -70,12 +61,28 @@ void ctl_player(t_data *d, void *img, ssize_t x, ssize_t y)
 			d->player.img = d->img.player.goal;
 			end_game(d, "Game Clear!!  Press Esc key.");
 		}
+		d->map->count++;
+		ft_printf("%d\n", d->map->count);
 		set_bar(d);
 		d->player.x = x;
 		d->player.y = y;
 		render_player(d);
 	}
 }
+
+/*
+	エスケープキー押下時・×ボタン押下時のイベント
+*/
+int on_destroy(t_data *d)
+{
+    free_data(d);
+	exit(EXIT_SUCCESS);
+    return(0);
+}
+
+/*
+	キー押下時のイベント
+*/
 int on_keypress(int keycode, t_data *d)
 {
 	ssize_t x;
@@ -95,53 +102,6 @@ int on_keypress(int keycode, t_data *d)
 		ctl_player(d, d->img.player.right, ++x, y);
     return (0);
 }
-void set_object(t_data *d, t_object *t, char stracture)
-{
-	ssize_t x;
-	ssize_t y;
-
-	if (!d || !d->map || !d->map->map)
-		free_and_exit("Error\n Failed in set_object\n", d);
-	x = 0;
-	t->flg = 0;
-	t->idx = 0;
-	while (x < d->map->column)
-	{
-		y = 0;
-		while(y < d->map->row)
-		{
-			if(d->map->map[y][x] == stracture)
-			{
-				t->x = x;
-				t->y = y;
-			}
-			y++;
-		}
-		x++;
-	}
-}
-void set_objectlist(t_data *d, t_list **list, char stracture, void *img)
-{
-	ssize_t x;
-	ssize_t y;
-
-    if (!d || !d->map || !d->map->map)
-		free_and_exit("Error\n Failed in set_objectlist\n", d);
-	x = 0;
-	while (x < d->map->column)
-	{
-		y = 0;
-		while(y < d->map->row)
-		{
-			if(d->map->map[y][x] == stracture)
-			{
-				enlist(list, x, y, img);
-			}
-			y++;
-		}
-		x++;
-	}
-}
 
 int main(int argc, char **argv)
 {
@@ -150,17 +110,14 @@ int main(int argc, char **argv)
     if (argc != 2)
         fail_and_exit("Error\n Not a single argument\n", &d);
     get_map(&d, argv);
-	set_object(&d, &d.player, PLAYER);
-	set_object(&d, &d.goal, EXIT);
-	check_reachable(&d);
+	check_playable(&d);
 	d.mlx = mlx_init();
 	if (!d.mlx)
 	    free_and_exit("Failed in mlx_init\n", &d);
 	d.win = mlx_new_window(d.mlx, d.map->column * PIC_SIZE, INFO_BER + (d.map->row * PIC_SIZE), "so_long");
 	if (!d.win)
 	    free_and_exit("Failed in mlx_new_window\n", &d);
-	set_img(&d);
-	set_objectlist(&d, &d.vilans, VILAN, &d.img.monster.right);
+	init_data(&d);
 	set_bar(&d);
 	init_frame(&d);
 	mlx_key_hook(d.win, on_keypress, &d);
