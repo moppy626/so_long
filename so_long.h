@@ -114,3 +114,4 @@ void check_playable(t_data *d);
 void end_game(t_data *d, char *msg);
 void add_list(t_list **head, ssize_t x, ssize_t y, void *img);
 t_object get_from_list(t_list **head);
+void check_attacked(t_data *d);

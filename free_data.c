@@ -1,5 +1,8 @@
 #include "so_long.h"
 
+/*
+    読み込んだマップデータを開放する
+*/
 void free_map(t_map *map)
 {
 	ssize_t idx;
@@ -25,6 +28,10 @@ void free_map(t_map *map)
         map = NULL;
 	}
 }
+
+/*
+    読み込んだ画像を破棄する
+*/
 void check_and_destroyimg(void *mlx, void *img)
 {
     if(img)
@@ -33,6 +40,10 @@ void check_and_destroyimg(void *mlx, void *img)
         img = NULL;
     }
 }
+
+/*
+    リストに読み込んだ画像を破棄する
+*/
 void destroy_list(void *mlx, void **list, ssize_t repeat)
 {
 	ssize_t idx;
@@ -44,6 +55,26 @@ void destroy_list(void *mlx, void **list, ssize_t repeat)
         idx++;
     }
 }
+
+/*
+    mlxのツール用に確保しているメモリを開放する
+*/
+void free_mlx_tools(t_data *d)
+{
+    if(d->win)
+        mlx_clear_window(d->mlx, d->win);
+    if(d->win)
+	    mlx_destroy_window(d->mlx, d->win);
+    if(d->mlx)
+    {
+        mlx_destroy_display(d->mlx);
+        free(d->mlx);
+    }
+}
+
+/*
+    読み込んだデータを開放する
+*/
 void free_data(t_data *d)
 {
     free_map(d->map);
@@ -65,28 +96,7 @@ void free_data(t_data *d)
     check_and_destroyimg(d->mlx, d->img.system.foot);
     check_and_destroyimg(d->mlx, d->img.system.goalframe);
     destroy_list(d->mlx, d->img.goal, 5);
-    if(d->win)
-        mlx_clear_window(d->mlx, d->win);
-    if(d->win)
-	    mlx_destroy_window(d->mlx, d->win);
-    if(d->mlx)
-    {
-        mlx_destroy_display(d->mlx);
-        free(d->mlx);
-    }
     while (d->vilans)
         get_from_list(&d->vilans);
-}
-void fail_and_exit(char *msg, t_data *d)
-{
-    if(d->map)
-        free(d->map);
-    ft_printf(msg);
-    exit(EXIT_FAILURE);
-}
-void free_and_exit(char *msg, t_data *d)
-{
-    ft_printf(msg);
-    free_data(d);
-    exit(EXIT_FAILURE);
+    free_mlx_tools(d);
 }

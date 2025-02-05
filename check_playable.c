@@ -66,6 +66,10 @@ void search_nextway(t_data *d, t_object current, int **visited, t_list **list, s
         visited[y][x] = 1;
     }
 }
+
+/*
+    探索を行う
+*/
 int search_root(t_data *d, int **visited, ssize_t arg_x, ssize_t arg_y)
 {
     int         ret;

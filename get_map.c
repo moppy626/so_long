@@ -1,6 +1,27 @@
 #include "so_long.h"
 
 /*
+	エラーメッセージを表示し、マップのみ解放して終了する
+*/
+void fail_and_exit(char *msg, t_data *d)
+{
+    if(d->map)
+        free(d->map);
+    ft_printf(msg);
+    exit(EXIT_FAILURE);
+}
+
+/*
+	エラーメッセージを表示し、データを解放して終了する
+*/
+void free_and_exit(char *msg, t_data *d)
+{
+    ft_printf(msg);
+    free_data(d);
+    exit(EXIT_FAILURE);
+}
+
+/*
 　マップの行数をカウントする
 　（後ろの改行を無視するため、最後の改行以外の行を返す）
 */

@@ -41,13 +41,16 @@ void set_player_img(t_data *d)
 	read_img((void **)&d->img.player.goal[2], d, "./img/player/goal2.xpm");
 }
 
-void set_objectlist(t_data *d, t_list **list, char stracture, void *img)
+/*
+	パトロールの初期状態を設定する
+*/
+void set_vilans(t_data *d, t_list **list, char stracture, void *img)
 {
 	ssize_t x;
 	ssize_t y;
 
     if (!d || !d->map || !d->map->map)
-		free_and_exit("Error\n Failed in set_objectlist\n", d);
+		free_and_exit("Error\n Failed in set_vilans\n", d);
 	x = 0;
 	while (x < d->map->column)
 	{
@@ -91,5 +94,5 @@ void init_data(t_data *d)
 	read_img((void **)&d->img.goal[4], d, "./img/goal/4.xpm");
 	set_player_img(d);
 	d->player.img = d->img.player.front;
-	set_objectlist(d, &d->vilans, VILAN, d->img.monster.right);
+	set_vilans(d, &d->vilans, VILAN, d->img.monster.right);
 }

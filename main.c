@@ -1,22 +1,16 @@
 #include "so_long.h"
 
-
-void clear_bar(t_data *d)
+/*
+	上部のバーに現在のステータスを表示する
+*/
+void set_bar(t_data *d)
 {
+	char *str;
 	ssize_t x;
 
 	x = 0;
 	while(x < d->map->column)
-	{
-		mlx_put_image_to_window(d->mlx, d->win, d->img.system.bar, x * PIC_SIZE, 0);
-		x++;
-	}
-}
-void set_bar(t_data *d)
-{
-	char *str;
-
-	clear_bar(d);
+		mlx_put_image_to_window(d->mlx, d->win, d->img.system.bar, x++ * PIC_SIZE, 0);
 	str = ft_itoa(d->map->count);
 	mlx_string_put(d->mlx, d->win, 40, 16, 0xFFFFFFFF, str);
 	free(str);
@@ -30,19 +24,10 @@ void set_bar(t_data *d)
 	mlx_string_put(d->mlx, d->win, 130, 16, 0xFFFFFFFF, str);
 	free(str);
 }
-void end_game(t_data *d, char *msg)
-{
-	ssize_t x;
 
-	d->goal.flg = 1;
-	x = 0;
-	while(x < d->map->column)
-	{
-		my_put_image_to_window(d, d->img.system.goalframe, x, 0);
-		x++;
-	}
-	mlx_string_put(d->mlx, d->win, 15, 53, 0xFFFFFFFF, msg);
-}
+/*
+	キー押下がされた際、プレーヤーを動かす
+*/
 void ctl_player(t_data *d, void *img, ssize_t x, ssize_t y)
 {
 	if (d->goal.flg == 1)
@@ -50,6 +35,7 @@ void ctl_player(t_data *d, void *img, ssize_t x, ssize_t y)
 	d->player.img = img;
 	if(d->map->map[y][x] != WALL)
 	{
+		check_attacked(d);
 		my_put_image_to_window(d, d->img.floor, d->player.x, d->player.y);
 		if(d->map->map[y][x] == ITEM)
 		{
@@ -102,7 +88,9 @@ int on_keypress(int keycode, t_data *d)
 		ctl_player(d, d->img.player.right, ++x, y);
     return (0);
 }
-
+/*
+	メイン関数
+*/
 int main(int argc, char **argv)
 {
     t_data d = {0};
