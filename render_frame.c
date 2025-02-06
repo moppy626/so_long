@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_frame.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmachida <mmachida@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 20:57:03 by mmachida          #+#    #+#             */
+/*   Updated: 2025/02/06 20:57:03 by mmachida         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 /*
 	敵のパトロールを動かす
 */
-void move_vilan(t_data *d, t_list *enemy, int next)
+void	move_vilan(t_data *d, t_list *enemy, int next)
 {
-	if(d->map->map[enemy->object.y][enemy->object.x + next] == WALL
+	if (d->map->map[enemy->object.y][enemy->object.x + next] == WALL
 		|| (d->map->map[enemy->object.y][enemy->object.x + next] == EXIT && d->map->getitems == d->map->allitems))
 	{
 		if (next == 1)
@@ -21,7 +33,7 @@ void move_vilan(t_data *d, t_list *enemy, int next)
 	}
 	else
 	{
-		if(d->map->map[enemy->object.y][enemy->object.x] == ITEM)
+		if (d->map->map[enemy->object.y][enemy->object.x] == ITEM)
 			my_put_image_to_window(d, d->img.item, enemy->object.x, enemy->object.y);
 		else
 			my_put_image_to_window(d, d->img.floor, enemy->object.x, enemy->object.y);
@@ -32,16 +44,16 @@ void move_vilan(t_data *d, t_list *enemy, int next)
 /*
 	敵のパトロールを描画する
 */
-void render_vilans(t_data *d)
+void	render_vilans(t_data *d)
 {
-	t_list *enemy;
+	t_list	*enemy;
 
-	if(d->goal.flg == 1)
-		return;
+	if (d->goal.flg == 1)
+		return ;
 	enemy = d->vilans;
-	while(enemy)
+	while (enemy)
 	{
-		if(enemy->object.flg == 0)
+		if (enemy->object.flg == 0)
 			move_vilan(d, enemy, +1);
 		else
 			move_vilan(d, enemy, -1);
@@ -56,12 +68,12 @@ void render_vilans(t_data *d)
 /*
 	プレイヤーを描画する
 */
-void render_player(t_data *d)
+void	render_player(t_data *d)
 {
 	if (d->player.idx >= 3)
 	{
-		if(d->player.flg == 1)
-			return;
+		if (d->player.flg == 1)
+			return ;
 		else
 			d->player.idx = 0;
 	}
@@ -72,9 +84,9 @@ void render_player(t_data *d)
 /*
 	アイテムがすべて回収されたら、出口を描画する
 */
-void render_goal(t_data *d)
+void	render_goal(t_data *d)
 {
-	if(d->map->getitems == d->map->allitems && d->goal.idx < 5)
+	if (d->map->getitems == d->map->allitems && d->goal.idx < 5)
 	{
 		my_put_image_to_window(d, d->img.goal[d->goal.idx] , d->goal.x, d->goal.y);
 		d->goal.idx++;
@@ -84,9 +96,9 @@ void render_goal(t_data *d)
 /*
 	レンダリングを行う
 */
-int render_next_frame(t_data *d)
+int	render_next_frame(t_data *d)
 {
-	static int render = 0;
+	static	int	render = 0;
 
 	if (render <= 0)
 	{

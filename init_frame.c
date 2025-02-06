@@ -1,14 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_frame.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmachida <mmachida@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 22:41:25 by mmachida          #+#    #+#             */
+/*   Updated: 2025/02/06 22:41:25 by mmachida         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-void check_attacked(t_data *d)
+void	check_attacked(t_data *d)
 {
-	t_list *enemy;
-	if(d->goal.flg == 1)
-		return;
+	t_list	*enemy;
+
+	if (d->goal.flg == 1)
+		return ;
 	enemy = d->vilans;
-	while(enemy)
+	while (enemy)
 	{
-		if(enemy->object.x == d->player.x && enemy->object.y == d->player.y)
+		if (enemy->object.x == d->player.x && enemy->object.y == d->player.y)
 		{
 			d->player.flg = 1;
 			d->player.img = d->img.player.damage;
@@ -18,42 +31,49 @@ void check_attacked(t_data *d)
 		enemy = enemy->next;
 	}
 }
+
 /*
 	ステータスバーを考慮した位置に画像を配置する
 */
-void my_put_image_to_window(t_data *d, void *img, ssize_t x, ssize_t y)
+void	my_put_image_to_window(t_data *d, void *img, ssize_t x, ssize_t y)
 {
-	mlx_put_image_to_window(d->mlx, d->win, img, x * PIC_SIZE, INFO_BER + (y * PIC_SIZE));
+	ssize_t		nx;
+	ssize_t		ny;
+
+	nx = x * PIC_SIZE;
+	ny = INFO_BER + (y * PIC_SIZE);
+	mlx_put_image_to_window(d->mlx, d->win, img, nx, ny);
 }
 
 /*
 	ゲームを終了し、画面上部にメッセージを表示する
 */
-void end_game(t_data *d, char *msg)
+void	end_game(t_data *d, char *msg)
 {
-	ssize_t x;
+	ssize_t	x;
 
 	d->goal.flg = 1;
 	x = 0;
-	while(x < d->map->column)
+	while (x < d->map->column)
 	{
-		my_put_image_to_window(d, d->img.system.goalframe, x, 0);
+		my_put_image_to_window(d, d->img.system.frame, x, 0);
 		x++;
 	}
 	mlx_string_put(d->mlx, d->win, 15, 53, 0xFFFFFFFF, msg);
 }
+
 /*
 	壁の描画を行う
 */
-void set_wall(t_data *d, ssize_t x, ssize_t y)
+void	set_wall(t_data *d, ssize_t x, ssize_t y)
 {
 	if (x == 0)
 		my_put_image_to_window(d, d->img.wall.top, x, y);
-	else if(x == d->map->column - 1)
+	else if (x == d->map->column - 1)
 		my_put_image_to_window(d, d->img.wall.top, x, y);
-	else if(y == d->map->row - 1)
+	else if (y == d->map->row - 1)
 		my_put_image_to_window(d, d->img.wall.top, x, y);
-	else if(y == 0)
+	else if (y == 0)
 		my_put_image_to_window(d, d->img.wall.under, x, y);
 	else
 		my_put_image_to_window(d, d->img.wall.stone, x, y);
@@ -62,22 +82,22 @@ void set_wall(t_data *d, ssize_t x, ssize_t y)
 /*
 	フレームの描画を行う
 */
-void init_frame(t_data *d)
+void	init_frame(t_data *d)
 {
-	ssize_t x;
-	ssize_t y;
+	ssize_t	x;
+	ssize_t	y;
 
 	y = 0;
 	while (y < d->map->row)
 	{
 		x = 0;
-		while(x < d->map->column)
+		while (x < d->map->column)
 		{
-			if(d->map->map[y][x] == WALL)
+			if (d->map->map[y][x] == WALL)
 				set_wall(d, x, y);
-			else if(d->map->map[y][x] == EXIT)
+			else if (d->map->map[y][x] == EXIT)
 				my_put_image_to_window(d, d->img.goal[0], x, y);
-			else if(d->map->map[y][x] == ITEM)
+			else if (d->map->map[y][x] == ITEM)
 				my_put_image_to_window(d, d->img.item, x, y);
 			else
 				my_put_image_to_window(d, d->img.floor, x, y);

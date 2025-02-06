@@ -1,25 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_data.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmachida <mmachida@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 20:55:07 by mmachida          #+#    #+#             */
+/*   Updated: 2025/02/06 20:55:07 by mmachida         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 /*
 	mlx_xpm_file_to_imageを使用し、
 	その戻り値がNULLの場合エラー処理を行います
 */
-void read_img(void **img, t_data *d,char *filename)
+void	read_img(void **img, t_data *d, char *filename)
 {
 	int	wid;
 	int	hei;
 
-    wid = 0;
-    hei = 0;
+	wid = 0;
+	hei = 0;
 	*img = mlx_xpm_file_to_image(d->mlx, filename, &wid, &hei);
-	if(!*img)
-		free_and_exit("Error\n Failed to load image\n", d);
+	if (!*img)
+		end("Error\n Failed to load image\n", d);
 }
 
 /*
 	プレイヤーの画像を読み込みます
 */
-void set_player_img(t_data *d)
+void	set_player_img(t_data *d)
 {
 	read_img((void **)&d->img.player.front[0], d, "./img/player/front0.xpm");
 	read_img((void **)&d->img.player.front[1], d, "./img/player/front1.xpm");
@@ -44,20 +56,20 @@ void set_player_img(t_data *d)
 /*
 	パトロールの初期状態を設定する
 */
-void set_vilans(t_data *d, t_list **list, char stracture, void *img)
+void	set_vilans(t_data *d, t_list **list, char stracture, void *img)
 {
-	ssize_t x;
-	ssize_t y;
+	ssize_t	x;
+	ssize_t	y;
 
-    if (!d || !d->map || !d->map->map)
-		free_and_exit("Error\n Failed in set_vilans\n", d);
+	if (!d || !d->map || !d->map->map)
+		end("Error\n Failed in set_vilans\n", d);
 	x = 0;
 	while (x < d->map->column)
 	{
 		y = 0;
-		while(y < d->map->row)
+		while (y < d->map->row)
 		{
-			if(d->map->map[y][x] == stracture)
+			if (d->map->map[y][x] == stracture)
 			{
 				add_list(list, x, y, img);
 			}
@@ -70,7 +82,7 @@ void set_vilans(t_data *d, t_list **list, char stracture, void *img)
 /*
 	描画に必要な画像を読み込みます
 */
-void init_data(t_data *d)
+void	init_data(t_data *d)
 {
 	read_img((void **)&d->img.floor, d, "./img/floor.xpm");
 	read_img((void **)&d->img.wall.top, d, "./img/wall/top.xpm");
@@ -86,7 +98,7 @@ void init_data(t_data *d)
 	read_img((void **)&d->img.system.bar, d, "./img/system/bar.xpm");
 	read_img((void **)&d->img.system.coin, d, "./img/system/coin.xpm");
 	read_img((void **)&d->img.system.foot, d, "./img/system/foot.xpm");
-	read_img((void **)&d->img.system.goalframe, d, "./img/system/goalframe.xpm");
+	read_img((void **)&d->img.system.frame, d, "./img/system/frame.xpm");
 	read_img((void **)&d->img.goal[0], d, "./img/goal/0.xpm");
 	read_img((void **)&d->img.goal[1], d, "./img/goal/1.xpm");
 	read_img((void **)&d->img.goal[2], d, "./img/goal/2.xpm");
