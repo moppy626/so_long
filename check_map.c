@@ -125,7 +125,7 @@ void	check_map(t_data *d)
 			end("Error\n  The map must be closed/surrounded by walls\n", d);
 	if (count_object(d, &d->player, PLAYER) != 1)
 		end("Error\n  The map must contain 1 starting position\n", d);
-	if (count_object(d, &d->goal, EXIT) != 1)
+	if (count_object(d, &d->exit, EXIT) != 1)
 		end("Error\n  The map must contain 1 exit\n", d);
 	d->map->allitems = count_object(d, NULL, ITEM);
 	if (d->map->allitems < 1)

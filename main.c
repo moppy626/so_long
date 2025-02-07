@@ -46,7 +46,7 @@ void	set_bar(t_data *d)
 */
 void	ctl_player(t_data *d, void *img, ssize_t x, ssize_t y)
 {
-	if (d->goal.flg == 1)
+	if (d->exit.flg == 1)
 		return ;
 	d->player.img = img;
 	if (d->map->map[y][x] != WALL)
@@ -60,7 +60,7 @@ void	ctl_player(t_data *d, void *img, ssize_t x, ssize_t y)
 		}
 		if (d->map->map[y][x] == EXIT && d->map->getitems == d->map->allitems)
 		{
-			d->player.img = d->img.player.goal;
+			d->player.img = d->img.player.exit;
 			end_game(d, "Game Clear!!  Press Esc key.");
 		}
 		d->map->count++;
@@ -110,19 +110,24 @@ int	on_keypress(int keycode, t_data *d)
 */
 int	main(int argc, char **argv)
 {
-	t_data d = {0};
+	t_data	d;
+	ssize_t	width;
+	ssize_t	height;
 
 	if (argc != 2)
 		fail_and_end("Error\n Not a single argument\n", &d);
+	d = init_data();
 	get_map(&d, argv);
 	check_playable(&d);
 	d.mlx = mlx_init();
 	if (!d.mlx)
 		end("Failed in mlx_init\n", &d);
-	d.win = mlx_new_window(d.mlx, d.map->column * PIC_SIZE, INFO_BER + (d.map->row * PIC_SIZE), "so_long");
+	width = d.map->column * PIC_SIZE;
+	height = INFO_BER + (d.map->row * PIC_SIZE);
+	d.win = mlx_new_window(d.mlx, width, height, "so_long");
 	if (!d.win)
 		end("Failed in mlx_new_window\n", &d);
-	init_data(&d);
+	road_xpm(&d);
 	set_bar(&d);
 	init_frame(&d);
 	mlx_key_hook(d.win, on_keypress, &d);

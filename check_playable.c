@@ -133,7 +133,7 @@ void	check_playable(t_data *d)
 
 	x = 0;
 	y = 0;
-	if (is_reachable(d, d->goal.x, d->goal.y) != 1)
+	if (is_reachable(d, d->exit.x, d->exit.y) != 1)
 		end("Error\n  You have to check if there’s a valid path in the map\n", d);
 	while (x < d->map->column)
 	{

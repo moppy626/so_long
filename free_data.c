@@ -99,15 +99,15 @@ void	free_data(t_data *d)
 	destroy_list(d->mlx, d->img.player.right, 3);
 	destroy_list(d->mlx, d->img.player.left, 3);
 	destroy_list(d->mlx, d->img.player.damage, 3);
-	destroy_list(d->mlx, d->img.player.goal, 3);
-	destroy_list(d->mlx, d->img.monster.left, 3);
-	destroy_list(d->mlx, d->img.monster.right, 3);
+	destroy_list(d->mlx, d->img.player.exit, 3);
+	destroy_list(d->mlx, d->img.vilan.left, 3);
+	destroy_list(d->mlx, d->img.vilan.right, 3);
 	check_and_destroyimg(d->mlx, d->img.item);
 	check_and_destroyimg(d->mlx, d->img.system.bar);
 	check_and_destroyimg(d->mlx, d->img.system.coin);
 	check_and_destroyimg(d->mlx, d->img.system.foot);
 	check_and_destroyimg(d->mlx, d->img.system.frame);
-	destroy_list(d->mlx, d->img.goal, 5);
+	destroy_list(d->mlx, d->img.exit, 5);
 	while (d->vilans)
 		get_from_list(&d->vilans);
 	free_mlx_tools(d);

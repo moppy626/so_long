@@ -16,7 +16,7 @@ void	check_attacked(t_data *d)
 {
 	t_list	*enemy;
 
-	if (d->goal.flg == 1)
+	if (d->exit.flg == 1)
 		return ;
 	enemy = d->vilans;
 	while (enemy)
@@ -52,7 +52,7 @@ void	end_game(t_data *d, char *msg)
 {
 	ssize_t	x;
 
-	d->goal.flg = 1;
+	d->exit.flg = 1;
 	x = 0;
 	while (x < d->map->column)
 	{
@@ -96,7 +96,7 @@ void	init_frame(t_data *d)
 			if (d->map->map[y][x] == WALL)
 				set_wall(d, x, y);
 			else if (d->map->map[y][x] == EXIT)
-				my_put_image_to_window(d, d->img.goal[0], x, y);
+				my_put_image_to_window(d, d->img.exit[0], x, y);
 			else if (d->map->map[y][x] == ITEM)
 				my_put_image_to_window(d, d->img.item, x, y);
 			else
