@@ -1,5 +1,6 @@
 # so_long
 X11を使用した42の独自ライブラリを使用して、ミニゲームを作ります。
+![Image](https://github.com/user-attachments/assets/9e0c39e1-fd0a-480e-923f-e02e975de648)
 
 # 課題要件概要
 * .berで終わるマップ記述ファイルをパラメータとして受け取り、読み込むことができること
