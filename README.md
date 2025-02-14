@@ -16,8 +16,7 @@ X11を使用した42の独自ライブラリを使用して、ミニゲームを
 1111111111111
 ```
 * プレイ不可能なマップの場合、「Error\n」に続いてエラーメッセージを返すこと
-  etc...
+* etc...
 
 # 作成時のルール
 * 使用してよい関数はopen・close・read・write・malloc・free・perror・strerror・exitのみ
-* 
