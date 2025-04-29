@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC = sudo cc -Wall -Wextra -Werror
+CC = cc -Wall -Wextra -Werror
 NAME = so_long
 BONUS_NAME = so_long_bonus
 SRC = main.c free_data.c get_map.c road_xpm.c render_frame.c check_map.c init_frame.c check_playable.c init_data.c
