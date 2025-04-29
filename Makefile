@@ -41,4 +41,5 @@ fclean: clean
 	rm -f $(NAME) $(BONUS_NAME)
 
 re: fclean all
-	
+
+.PHONY: all bonus clean fclean re
