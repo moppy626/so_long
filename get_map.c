@@ -13,7 +13,7 @@
 #include "so_long.h"
 
 /*
-	エラーメッセージを表示し、マップのみ解放して終了する
+	Display error message, release only the map and exit
 */
 void	fail_and_end(char *msg, t_data *d)
 {
@@ -24,7 +24,7 @@ void	fail_and_end(char *msg, t_data *d)
 }
 
 /*
-	エラーメッセージを表示し、データを解放して終了する
+	Display error message, release data and exit
 */
 void	end(char *msg, t_data *d)
 {
@@ -34,8 +34,8 @@ void	end(char *msg, t_data *d)
 }
 
 /*
-　マップの行数をカウントする
-　（後ろの改行を無視するため、最後の改行以外の行を返す）
+	　Count the number of lines in the map
+	　(ignore trailing newlines, return lines other than the last newline)
 */
 ssize_t	count_map(t_data *d, char **argv)
 {
@@ -65,7 +65,7 @@ ssize_t	count_map(t_data *d, char **argv)
 }
 
 /*
-	マップを読み込みます
+	Load map
 */
 void	read_map(t_data *d, int fd)
 {
@@ -86,7 +86,7 @@ void	read_map(t_data *d, int fd)
 }
 
 /*
-	パラメタのパスからマップを読み込みます
+	Loads a map from a parameter path
 */
 void	get_map(t_data *d, char **argv)
 {

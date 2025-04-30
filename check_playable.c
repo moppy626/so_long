@@ -13,7 +13,7 @@
 #include "so_long.h"
 
 /*
-　探索済みかどうかを示すマップを初期化する
+	Initialize the map indicating whether it has been searched or not
 */
 int	initialize_visitedmap(t_data *d, int ***visited)
 {
@@ -43,7 +43,8 @@ int	initialize_visitedmap(t_data *d, int ***visited)
 }
 
 /*
-　現在地の前後左右を探索し、壁でなければリストに追加する
+	Search the front, back, left, and right of the current location, 
+	and if it is not a wall, add it to the list.
 */
 void	search_nextway(t_data *d, t_object current
 								, int **visited, t_list **list)
@@ -76,7 +77,7 @@ void	search_nextway(t_data *d, t_object current
 }
 
 /*
-	探索を行う
+	Explore
 */
 int	search_root(t_data *d, int **visited, ssize_t arg_x, ssize_t arg_y)
 {
@@ -104,8 +105,10 @@ int	search_root(t_data *d, int **visited, ssize_t arg_x, ssize_t arg_y)
 }
 
 /*
-　現在地から引数に設定された座標に到達できるかどうか、
-　幅優先探索を行い、到達できたら1を返す
+	　Whether the coordinates set in the argument 
+	  can be reached from the current location or not,
+	　If it is possible to reach the coordinates set 
+	  in the argument from the current location, 1 is returned.
 */
 int	is_reachable(t_data *d, ssize_t arg_x, ssize_t arg_y)
 {
@@ -124,7 +127,7 @@ int	is_reachable(t_data *d, ssize_t arg_x, ssize_t arg_y)
 }
 
 /*
-	すべてのアイテムとゴールが到達可能か調べる
+	Find out if all items and goals are reachable
 */
 void	check_playable(t_data *d)
 {
