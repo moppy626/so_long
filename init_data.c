@@ -13,7 +13,7 @@
 #include "so_long.h"
 
 /*
-	Initialize array
+	配列を初期化する
 */
 void	init_array(void **array, int size)
 {
@@ -25,7 +25,7 @@ void	init_array(void **array, int size)
 }
 
 /*
-	Initialize image holding area
+	画像保持領域を初期化する
 */
 void	init_img(t_img	*img)
 {
@@ -50,7 +50,7 @@ void	init_img(t_img	*img)
 }
 
 /*
-	Initialize data retention area
+	データ保持領域を初期化する
 */
 t_data	init_data(void)
 {

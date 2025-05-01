@@ -33,7 +33,7 @@ void	check_attacked(t_data *d)
 }
 
 /*
-	Place images in a position that takes the status bar into account
+	ステータスバーを考慮した位置に画像を配置する
 */
 void	my_put_image_to_window(t_data *d, void *img, ssize_t x, ssize_t y)
 {
@@ -46,7 +46,7 @@ void	my_put_image_to_window(t_data *d, void *img, ssize_t x, ssize_t y)
 }
 
 /*
-	Exit the game and display a message at the top of the screen
+	ゲームを終了し、画面上部にメッセージを表示する
 */
 void	end_game(t_data *d, char *msg)
 {
@@ -63,7 +63,7 @@ void	end_game(t_data *d, char *msg)
 }
 
 /*
-	Drawing a wall.
+	壁の描画を行う
 */
 void	set_wall(t_data *d, ssize_t x, ssize_t y)
 {
@@ -80,7 +80,7 @@ void	set_wall(t_data *d, ssize_t x, ssize_t y)
 }
 
 /*
-	Drawing frames.
+	フレームの描画を行う
 */
 void	init_frame(t_data *d)
 {

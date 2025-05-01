@@ -13,7 +13,7 @@
 #include "so_long.h"
 
 /*
-	Release the loaded map data.
+	読み込んだマップデータを開放する
 */
 void	free_map(t_map *map)
 {
@@ -42,7 +42,7 @@ void	free_map(t_map *map)
 }
 
 /*
-	Discard loaded images
+	読み込んだ画像を破棄する
 */
 void	check_and_destroyimg(void *mlx, void *img)
 {
@@ -54,7 +54,7 @@ void	check_and_destroyimg(void *mlx, void *img)
 }
 
 /*
-	Discard images loaded in the list
+	リストに読み込んだ画像を破棄する
 */
 void	destroy_list(void *mlx, void **list, ssize_t repeat)
 {
@@ -69,7 +69,7 @@ void	destroy_list(void *mlx, void **list, ssize_t repeat)
 }
 
 /*
-	Free up memory reserved for mlx tools
+	mlxのツール用に確保しているメモリを開放する
 */
 void	free_mlx_tools(t_data *d)
 {
@@ -85,7 +85,7 @@ void	free_mlx_tools(t_data *d)
 }
 
 /*
-	Release data that has been read
+	読み込んだデータを開放する
 */
 void	free_data(t_data *d)
 {

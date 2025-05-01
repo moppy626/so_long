@@ -13,7 +13,7 @@
 #include "so_long.h"
 
 /*
-	Display current status on top bar
+	上部のバーに現在のステータスを表示する
 */
 void	set_bar(t_data *d)
 {
@@ -42,7 +42,7 @@ void	set_bar(t_data *d)
 }
 
 /*
-	Move the player when a key is pressed.
+	キー押下がされた際、プレーヤーを動かす
 */
 void	ctl_player(t_data *d, void *img, ssize_t x, ssize_t y)
 {
@@ -73,7 +73,7 @@ void	ctl_player(t_data *d, void *img, ssize_t x, ssize_t y)
 }
 
 /*
-	Events when the escape key is pressed or the x button is pressed
+	エスケープキー押下時・×ボタン押下時のイベント
 */
 int	on_destroy(t_data *d)
 {
@@ -83,7 +83,7 @@ int	on_destroy(t_data *d)
 }
 
 /*
-	Key press events
+	キー押下時のイベント
 */
 int	on_keypress(int keycode, t_data *d)
 {
@@ -106,7 +106,7 @@ int	on_keypress(int keycode, t_data *d)
 }
 
 /*
-	main function
+	メイン関数
 */
 int	main(int argc, char **argv)
 {

@@ -13,7 +13,7 @@
 #include "so_long.h"
 
 /*
-	Add data to the list
+	リストにデータを追加する
 */
 void	add_list(t_list **head, ssize_t x, ssize_t y, void *img)
 {
@@ -42,7 +42,7 @@ void	add_list(t_list **head, ssize_t x, ssize_t y, void *img)
 }
 
 /*
-	Extracting data from a list
+	リストからデータを取り出す
 */
 t_object	get_from_list(t_list **head)
 {
@@ -57,7 +57,7 @@ t_object	get_from_list(t_list **head)
 }
 
 /*
-	Retrieve the data to get the length of one line of characters de-read from the list.
+	読み込んだ文字の1行の長さを取得する
 */
 ssize_t	check_len(const char *s)
 {
@@ -70,7 +70,7 @@ ssize_t	check_len(const char *s)
 }
 
 /*
-	Counts the number of elements specified in the parameter
+	パラメタで指定された要素の数をカウントする
 */
 ssize_t	count_object(t_data *d, t_object *t, char object)
 {
@@ -102,7 +102,7 @@ ssize_t	count_object(t_data *d, t_object *t, char object)
 }
 
 /*
-	Make sure the map meets the rules.
+	マップが規則に合ったものか確認する
 */
 void	check_map(t_data *d)
 {
