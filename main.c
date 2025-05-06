@@ -13,35 +13,6 @@
 #include "so_long.h"
 
 /*
-	上部のバーに現在のステータスを表示する
-*/
-void	set_bar(t_data *d)
-{
-	char	*str;
-	ssize_t	x;
-	ssize_t	loc;
-
-	x = 0;
-	while (x < d->map->column)
-	{
-		loc = x++ *PIC_SIZE;
-		mlx_put_image_to_window(d->mlx, d->win, d->img.system.bar, loc, 0);
-	}
-	str = ft_itoa(d->map->count);
-	mlx_string_put(d->mlx, d->win, 40, 16, 0xFFFFFFFF, str);
-	free(str);
-	str = ft_itoa(d->map->getitems);
-	mlx_put_image_to_window(d->mlx, d->win, d->img.system.foot, 10, 3);
-	mlx_string_put(d->mlx, d->win, 100, 16, 0xFFFFFFFF, str);
-	free(str);
-	str = ft_itoa(d->map->allitems);
-	mlx_put_image_to_window(d->mlx, d->win, d->img.system.coin, 70, 3);
-	mlx_string_put(d->mlx, d->win, 120, 16, 0xFFFFFFFF, "/");
-	mlx_string_put(d->mlx, d->win, 130, 16, 0xFFFFFFFF, str);
-	free(str);
-}
-
-/*
 	キー押下がされた際、プレーヤーを動かす
 */
 void	ctl_player(t_data *d, void *img, ssize_t x, ssize_t y)
@@ -51,21 +22,21 @@ void	ctl_player(t_data *d, void *img, ssize_t x, ssize_t y)
 	d->player.img = img;
 	if (d->map->map[y][x] != WALL)
 	{
-		check_attacked(d);
 		my_put_image_to_window(d, d->img.floor, d->player.x, d->player.y);
 		if (d->map->map[y][x] == ITEM)
 		{
 			d->map->getitems++;
 			d->map->map[y][x] = FLOOR;
+			render_exit(d);
 		}
 		if (d->map->map[y][x] == EXIT && d->map->getitems == d->map->allitems)
 		{
 			d->player.img = d->img.player.exit;
+			d->player.idx = 2;
 			end_game(d, "Game Clear!!  Press Esc key.");
 		}
 		d->map->count++;
 		ft_printf("%d\n", d->map->count);
-		set_bar(d);
 		d->player.x = x;
 		d->player.y = y;
 		render_player(d);
@@ -123,15 +94,13 @@ int	main(int argc, char **argv)
 	if (!d.mlx)
 		end("Failed in mlx_init\n", &d);
 	width = d.map->column * PIC_SIZE;
-	height = INFO_BER + (d.map->row * PIC_SIZE);
+	height = d.map->row * PIC_SIZE;
 	d.win = mlx_new_window(d.mlx, width, height, "so_long");
 	if (!d.win)
 		end("Failed in mlx_new_window\n", &d);
 	road_xpm(&d);
-	set_bar(&d);
 	init_frame(&d);
 	mlx_key_hook(d.win, on_keypress, &d);
 	mlx_hook(d.win, DestroyNotify, StructureNotifyMask, on_destroy, &d);
-	mlx_loop_hook(d.mlx, render_next_frame, &d);
 	mlx_loop(d.mlx);
 }

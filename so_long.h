@@ -129,5 +129,6 @@ t_object	get_from_list(t_list **head);
 void		check_attacked(t_data *d);
 t_data		init_data(void);
 int			check_ext(char *str, char *ext);
+void		render_exit(t_data *d);
 
 #endif

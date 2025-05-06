@@ -12,26 +12,6 @@
 
 #include "so_long.h"
 
-void	check_attacked(t_data *d)
-{
-	t_list	*enemy;
-
-	if (d->exit.flg == 1)
-		return ;
-	enemy = d->vilans;
-	while (enemy)
-	{
-		if (enemy->object.x == d->player.x && enemy->object.y == d->player.y)
-		{
-			d->player.flg = 1;
-			d->player.img = d->img.player.damage;
-			d->player.idx = 0;
-			end_game(d, "Game Over.  Press Esc key.");
-		}
-		enemy = enemy->next;
-	}
-}
-
 /*
 	ステータスバーを考慮した位置に画像を配置する
 */
@@ -41,7 +21,7 @@ void	my_put_image_to_window(t_data *d, void *img, ssize_t x, ssize_t y)
 	ssize_t		ny;
 
 	nx = x * PIC_SIZE;
-	ny = INFO_BER + (y * PIC_SIZE);
+	ny = y * PIC_SIZE;
 	mlx_put_image_to_window(d->mlx, d->win, img, nx, ny);
 }
 
@@ -59,7 +39,7 @@ void	end_game(t_data *d, char *msg)
 		my_put_image_to_window(d, d->img.system.frame, x, 0);
 		x++;
 	}
-	mlx_string_put(d->mlx, d->win, 15, 53, 0xFFFFFFFF, msg);
+	mlx_string_put(d->mlx, d->win, 15, 27, 0xFFFFFFFF, msg);
 }
 
 /*

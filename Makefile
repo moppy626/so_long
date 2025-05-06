@@ -6,7 +6,7 @@
 #    By: mmachida <mmachida@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/02 20:20:23 by mmachida          #+#    #+#              #
-#    Updated: 2025/05/06 13:49:21 by mmachida         ###   ########.fr        #
+#    Updated: 2025/05/06 15:26:16 by mmachida         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ $(BONUS_NAME): $(OBJS_BONUS)
 	@$(CC) $(OBJS_BONUS) -lmlx -lXext -lX11 -o $(BONUS_NAME)
 
 clean: 
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
 	rm -f $(NAME) $(BONUS_NAME)
