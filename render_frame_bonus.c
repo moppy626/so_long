@@ -104,16 +104,19 @@ void	render_exit(t_data *d)
 */
 int	render_next_frame(t_data *d)
 {
-	static int	render = 0;
+	static long		last_enemy_update = 0;
+	struct timeval	tv;
+	long			now;
 
-	if (render <= 0)
+	gettimeofday(&tv, NULL);
+	now = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	if (now - last_enemy_update >= 150)
 	{
 		render_exit(d);
 		check_attacked(d);
-		render_vilans(d);
 		render_player(d);
-		render = 1000;
+		render_vilans(d);
+		last_enemy_update = now;
 	}
-	render--;
 	return (0);
 }
