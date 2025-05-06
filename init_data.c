@@ -73,3 +73,23 @@ t_data	init_data(void)
 	d.vilans = NULL;
 	return (d);
 }
+
+/*
+	拡張子が指定した文字列と一致するか調べる
+*/
+int	check_ext(char *str, char *ext)
+{
+	ssize_t	strlen;
+	ssize_t	extlen;
+
+	strlen = ft_strlen(str);
+	extlen = ft_strlen(ext);
+	if (strlen < extlen)
+		return (1);
+	while (strlen-- > extlen)
+		str++;
+	while (extlen--)
+		if (*str++ != *ext++)
+			return (1);
+	return (0);
+}

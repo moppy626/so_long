@@ -92,6 +92,8 @@ void	get_map(t_data *d, char **argv)
 {
 	int	fd;
 
+	if (check_ext(argv[1], ".ber"))
+		fail_and_end("Error\n  The extension is not .ber\n", d);	
 	d->map = malloc(sizeof(t_map));
 	if (!d->map)
 		fail_and_end("Error\n  Failed in malloc\n", d);
