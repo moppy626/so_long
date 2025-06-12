@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmachida <mmachida@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mmachida <mmachida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:35:16 by mmachida          #+#    #+#             */
-/*   Updated: 2025/02/06 21:35:16 by mmachida         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:48:28 by mmachida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ typedef struct s_object
 	ssize_t			flg;
 	ssize_t			idx;
 }	t_object;
-typedef struct s_list {
+typedef struct s_list
+{
 	t_object		object;
 	struct s_list	*next;
 }	t_list;
